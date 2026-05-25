@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passagens - Busca</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .section-title {
+            color: #444;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 280px 380px 1fr;
+            gap: 20px;
+        }
+
+        /* LUGARES */
+        .lugares {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .lugares .mot {
+            background: #6c757d;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .lugares-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        .lugares-grid button {
+            background: #e3f2fd;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .lugares-grid button:hover {
+            background: #bbdefb;
+        }
+        .banheiro {
+            margin-top: 20px;
+            background: #e9ecef;
+            color: #495057;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        /* PREÇOS */
+        .precos {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .preco-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 12px;
+            border-left: 4px solid #007bff;
+        }
+        .preco-card h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        .preco {
+            font-size: 20px;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        /* IMAGENS */
+        .imagens {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .imagens img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        /* ROTAS */
+        .rotas {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .rota-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 12px 0;
+            font-size: 15px;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .blue { background: #007bff; }
+        .green { background: #28a745; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="section-title">LUGARES</div>
+            <div class="section-title">PREÇOS</div>
+            <div class="section-title">IMAGENS</div>
+        </header>
+
+        <div class="main-content">
+            <!-- LUGARES -->
+            <div class="lugares">
+                <div class="mot">MOT</div>
+                <div class="lugares-grid">
+                    <script>
+                        for(let i = 1; i <= 40; i++) {
+                            document.write(`<button>${i}</button>`);
+                        }
+                    </script>
+                </div>
+                <div class="banheiro">Banheiro</div>
+            </div>
+
+            <!-- PREÇOS -->
+            <div class="precos">
+                <div class="preco-card">
+                    <h3>São Paulo → Florianópolis</h3>
+                    <p><strong class="preco">R$ 95,00</strong></p>
+                    <p style="font-size:14px; color:#666;">🕒 8h 30min • 📅 24/05/2026</p>
+                </div>
+                <div class="preco-card">
+                    <h3>Curitiba → Salvador</h3>
+                    <p><strong class="preco">R$ 280,00</strong></p>
+                    <p style="font-size:14px; color:#666;">🕒 32h 15min • 📅 24/05/2026</p>
+                </div>
+                <div class="preco-card">
+                    <h3>Recife → Natal</h3>
+                    <p><strong class="preco">R$ 75,00</strong></p>
+                    <p style="font-size:14px; color:#666;">🕒 5h 20min • 📅 25/05/2026</p>
+                </div>
+            </div>
+
+            <!-- IMAGENS - Suas 4 fotos -->
+            <div class="imagens">
+                <img src="IMG01.jpg" alt="Praia com coqueiros e canal">
+                <img src="IMG02.webp" alt="Praia com guarda-sol amarelo">
+                <img src="IMG03.jfif" alt="Cidade litorânea com arranha-céus">
+                <img src="IMG04.jpg" alt="Praia com barco e coqueiros">
+            </div>
+        </div>
+
+        <!-- ROTAS -->
+        <div class="rotas">
+            <h3 style="margin-bottom: 15px;">ROTAS</h3>
+            <div class="rota-item">
+                <span class="dot blue"></span>
+                <span><strong>São Paulo</strong></span>
+                <span>→</span>
+                <span class="dot green"></span>
+                <span><strong>Florianópolis</strong></span>
+                <span style="margin-left: auto; color:#666;">4 paradas</span>
+            </div>
+            <div class="rota-item">
+                <span class="dot blue"></span>
+                <span><strong>Curitiba</strong></span>
+                <span>→</span>
+                <span class="dot green"></span>
+                <span><strong>Salvador</strong></span>
+                <span style="margin-left: auto; color:#666;">8 paradas</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
