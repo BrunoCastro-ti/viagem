@@ -1,216 +1,452 @@
+ML
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Passagens - Busca</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
-        }
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            font-weight: bold;
-            font-size: 18px;
-        }
-        .section-title {
-            color: #444;
-        }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 280px 380px 1fr;
-            gap: 20px;
-        }
-
-        /* LUGARES */
-        .lugares {
-            background: white;
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .lugares .mot {
-            background: #6c757d;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 6px;
-            display: inline-block;
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-        .lugares-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-        }
-        .lugares-grid button {
-            background: #e3f2fd;
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-        .lugares-grid button:hover {
-            background: #bbdefb;
-        }
-        .banheiro {
-            margin-top: 20px;
-            background: #e9ecef;
-            color: #495057;
-            text-align: center;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: 500;
-        }
-
-        /* PREÇOS */
-        .precos {
-            background: white;
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .preco-card {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 12px;
-            border-left: 4px solid #007bff;
-        }
-        .preco-card h3 {
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-        .preco {
-            font-size: 20px;
-            font-weight: bold;
-            color: #28a745;
-        }
-
-        /* IMAGENS */
-        .imagens {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        .imagens img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-
-        /* ROTAS */
-        .rotas {
-            background: white;
-            border-radius: 12px;
-            padding: 15px;
-            margin-top: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .rota-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 12px 0;
-            font-size: 15px;
-        }
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-        .blue { background: #007bff; }
-        .green { background: #28a745; }
-    </style>
+<meta charset="UTF-8">
+<title>TatuBus</title>
+<style>
+  :root{
+    --blue:#1f7a9c;
+    --blue-dark:#0f2436;
+    --bg:#eef3f6;
+    --input-bg:#e3eef3;
+    --star:#cfd8de;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Poppins','Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--blue-dark);}
+  header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 60px;background:#fff;border-bottom:1px solid #e2e8ec;
+  }
+  .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:20px;color:var(--blue);}
+  nav{display:flex;gap:40px;font-weight:500;color:#33414c;}
+  nav a{text-decoration:none;color:inherit;padding-bottom:6px;cursor:pointer;}
+  nav a.active{color:var(--blue);border-bottom:2px solid var(--blue);}
+  .login-btn{background:var(--blue);color:#fff;border:none;padding:10px 22px;border-radius:20px;font-weight:600;cursor:pointer;}
+ 
+  .page{display:none;}
+  .page.active{display:block;}
+ 
+  /* ===== INÍCIO ===== */
+  .hero{
+    position:relative;min-height:600px;
+    background:linear-gradient(rgba(10,30,40,0.55),rgba(10,30,40,0.55)),
+      url('IMG/img.estrada.jpg') center/cover;
+    display:flex;flex-direction:column;align-items:center;text-align:center;
+    padding:70px 20px 60px;color:#fff;
+  }
+  .badge{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.4);padding:8px 18px;border-radius:20px;font-size:13px;margin-bottom:24px;}
+  .hero h1{font-size:52px;font-weight:800;line-height:1.15;margin-bottom:20px;}
+  .hero p{max-width:600px;font-size:16px;opacity:.9;margin-bottom:40px;}
+  .routes{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:740px;width:100%;}
+  .route-card{background:#fff;color:var(--blue-dark);border-radius:12px;padding:18px 22px;text-align:left;}
+  .route-card .city{font-weight:700;font-size:17px;}
+  .route-card .price{color:#5b6b76;font-size:14px;margin-top:4px;}
+ 
+  /* ===== SOBRE NÓS ===== */
+  .about{padding:60px 60px;}
+  .eyebrow{color:var(--blue);font-weight:700;font-size:13px;letter-spacing:1px;margin-bottom:10px;}
+  .about h1{font-size:42px;font-weight:800;margin-bottom:18px;}
+  .about > p{max-width:650px;color:#445; margin-bottom:40px;line-height:1.5;}
+  .cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:25px;}
+  .card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.04);}
+  .card img{width:100%;height:210px;object-fit:cover;display:block;}
+  .card-body{padding:22px;}
+  .card-body h3{font-size:18px;margin-bottom:10px;}
+  .card-body p{font-size:14px;color:#445;line-height:1.5;}
+  .card-body b{color:var(--blue-dark);}
+ 
+  /* ===== AVALIAÇÃO ===== */
+  .review-wrap{display:flex;flex-direction:column;align-items:flex-start;padding:60px 60px;}
+  .review-wrap h1{font-size:40px;font-weight:800;margin-bottom:10px;}
+  .review-wrap > p.sub{color:#556;margin-bottom:30px;}
+  .review-box{background:#fff;border-radius:16px;padding:40px;width:100%;max-width:620px;box-shadow:0 2px 14px rgba(0,0,0,0.05);}
+  .field{margin-bottom:26px;}
+  .field label{display:block;font-weight:600;font-size:15px;margin-bottom:10px;}
+  .field input[type=text]{
+    width:100%;padding:14px 16px;border:none;border-radius:10px;background:var(--input-bg);font-size:14px;color:#33414c;
+  }
+  .stars{display:flex;gap:10px;font-size:28px;color:var(--star);cursor:pointer;}
+  .stars span.active{color:#f5b400;}
+  .hint{font-size:13px;color:#90a0aa;margin-top:8px;}
+  textarea{
+    width:100%;min-height:140px;border:none;border-radius:10px;background:var(--input-bg);
+    padding:14px 16px;font-size:14px;color:#33414c;resize:vertical;font-family:inherit;
+  }
+  .count{text-align:right;font-size:12px;color:#90a0aa;margin-top:6px;}
+  .submit-row{display:flex;justify-content:flex-end;margin-top:10px;}
+  .submit-btn{
+    background:#9fc2cf;color:#fff;border:none;padding:13px 26px;border-radius:24px;
+    font-weight:600;font-size:14px;cursor:not-allowed;display:flex;align-items:center;gap:8px;
+  }
+  .submit-btn.enabled{background:var(--blue);cursor:pointer;}
+ 
+  /* ===== MODAL LOGIN ===== */
+  .modal-overlay{
+    display:none;position:fixed;inset:0;background:rgba(15,36,54,0.45);
+    align-items:center;justify-content:center;z-index:100;
+  }
+  .modal-overlay.active{display:flex;}
+  .modal-box{
+    background:#fff;width:420px;max-width:90%;border-radius:16px;overflow:hidden;
+    box-shadow:0 20px 50px rgba(0,0,0,0.25);position:relative;
+  }
+  .modal-header{
+    background:var(--blue);color:#fff;text-align:center;padding:28px 20px 24px;position:relative;
+  }
+  .modal-header .logo-modal{display:flex;align-items:center;justify-content:center;gap:8px;font-size:20px;font-weight:700;}
+  .modal-header p{margin-top:6px;font-size:14px;opacity:.9;}
+  .modal-close{
+    position:absolute;top:14px;right:16px;background:none;border:none;color:#fff;
+    font-size:20px;cursor:pointer;opacity:.85;line-height:1;
+  }
+  .modal-close:hover{opacity:1;}
+  .modal-body{padding:28px 28px 26px;}
+  .tabs{display:flex;background:var(--input-bg);border-radius:10px;padding:4px;margin-bottom:24px;}
+  .tab-btn{
+    flex:1;text-align:center;padding:10px 0;border-radius:8px;font-weight:600;font-size:14px;
+    cursor:pointer;border:none;background:transparent;color:#5b6b76;
+  }
+  .tab-btn.active{background:var(--blue);color:#fff;}
+  .modal-field{margin-bottom:18px;}
+  .modal-field label{display:block;font-weight:600;font-size:14px;margin-bottom:8px;}
+  .input-wrap{position:relative;}
+  .modal-field input{
+    width:100%;padding:13px 16px;border:none;border-radius:10px;background:var(--input-bg);
+    font-size:14px;color:#33414c;
+  }
+  .input-wrap input{padding-right:42px;}
+  .toggle-pass{
+    position:absolute;right:14px;top:50%;transform:translateY(-50%);
+    cursor:pointer;background:none;border:none;color:#7a8a94;font-size:16px;
+  }
+  .forgot{display:block;text-align:right;font-size:13px;color:var(--blue);text-decoration:none;margin-bottom:18px;cursor:pointer;}
+  .modal-submit{
+    width:100%;background:var(--blue);color:#fff;border:none;padding:14px 0;border-radius:24px;
+    font-weight:600;font-size:15px;cursor:pointer;margin-bottom:18px;
+  }
+  .modal-footer-text{text-align:center;font-size:13px;color:#556;}
+  .modal-footer-text b{color:var(--blue);cursor:pointer;}
+  .signup-only{display:none;}
+ 
+  /* ===== MODAL SUCESSO ===== */
+  .success-box{
+    background:#fff;width:380px;max-width:90%;border-radius:16px;padding:46px 32px 38px;
+    text-align:center;box-shadow:0 20px 50px rgba(0,0,0,0.25);
+  }
+  .success-icon{
+    width:70px;height:70px;border-radius:50%;background:#e3f6ea;color:#2fa85a;
+    display:flex;align-items:center;justify-content:center;font-size:34px;margin:0 auto 22px;
+  }
+  .success-box h2{font-size:22px;font-weight:700;margin-bottom:10px;color:var(--blue-dark);}
+  .success-box p{font-size:14px;color:#5b6b76;margin-bottom:28px;}
+  .success-btn{
+    background:var(--blue);color:#fff;border:none;padding:13px 30px;border-radius:24px;
+    font-weight:600;font-size:14px;cursor:pointer;
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="section-title">LUGARES</div>
-            <div class="section-title">PREÇOS</div>
-            <div class="section-title">IMAGENS</div>
-        </header>
-
-        <div class="main-content">
-            <!-- LUGARES -->
-            <div class="lugares">
-                <div class="mot">MOT</div>
-                <div class="lugares-grid">
-                    <script>
-                        for(let i = 1; i <= 40; i++) {
-                            document.write(`<button>${i}</button>`);
-                        }
-                    </script>
-                </div>
-                <div class="banheiro">Banheiro</div>
-            </div>
-
-            <!-- PREÇOS -->
-            <div class="precos">
-                <div class="preco-card">
-                    <h3>São Paulo → Florianópolis</h3>
-                    <p><strong class="preco">R$ 95,00</strong></p>
-                    <p style="font-size:14px; color:#666;">🕒 8h 30min • 📅 24/05/2026</p>
-                </div>
-                <div class="preco-card">
-                    <h3>Curitiba → Salvador</h3>
-                    <p><strong class="preco">R$ 280,00</strong></p>
-                    <p style="font-size:14px; color:#666;">🕒 32h 15min • 📅 24/05/2026</p>
-                </div>
-                <div class="preco-card">
-                    <h3>Recife → Natal</h3>
-                    <p><strong class="preco">R$ 75,00</strong></p>
-                    <p style="font-size:14px; color:#666;">🕒 5h 20min • 📅 25/05/2026</p>
-                </div>
-            </div>
-
-            <!-- IMAGENS - Suas 4 fotos -->
-            <div class="imagens">
-                <img src="IMG01.jpg" alt="Praia com coqueiros e canal">
-                <img src="IMG02.webp" alt="Praia com guarda-sol amarelo">
-                <img src="IMG03.jfif" alt="Cidade litorânea com arranha-céus">
-                <img src="IMG04.jpg" alt="Praia com barco e coqueiros">
-            </div>
-        </div>
-
-        <!-- ROTAS -->
-        <div class="rotas">
-            <h3 style="margin-bottom: 15px;">ROTAS</h3>
-            <div class="rota-item">
-                <span class="dot blue"></span>
-                <span><strong>São Paulo</strong></span>
-                <span>→</span>
-                <span class="dot green"></span>
-                <span><strong>Florianópolis</strong></span>
-                <span style="margin-left: auto; color:#666;">4 paradas</span>
-            </div>
-            <div class="rota-item">
-                <span class="dot blue"></span>
-                <span><strong>Curitiba</strong></span>
-                <span>→</span>
-                <span class="dot green"></span>
-                <span><strong>Salvador</strong></span>
-                <span style="margin-left: auto; color:#666;">8 paradas</span>
-            </div>
-        </div>
+ 
+<header>
+  <div class="logo">🚌 TatuBus</div>
+  <nav>
+    <a data-page="inicio" class="active">Início</a>
+    <a data-page="sobre">Sobre Nós</a>
+    <a data-page="avaliacao">Avaliação</a>
+  </nav>
+  <button class="login-btn" id="loginOpenBtn">Login</button>
+</header>
+ 
+<!-- ===== MODAL LOGIN/CADASTRO ===== -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <button class="modal-close" id="closeModalBtn">✕</button>
+      <div class="logo-modal">🚌 TatuBus</div>
+      <p>Acesse sua conta de viajante</p>
     </div>
+    <div class="modal-body">
+      <div class="tabs">
+        <button class="tab-btn active" id="tabEntrar">Entrar</button>
+        <button class="tab-btn" id="tabCadastrar">Cadastrar</button>
+      </div>
+ 
+      <div class="signup-only">
+        <div class="modal-field">
+          <label>Nome completo</label>
+          <input type="text" placeholder="Seu nome">
+        </div>
+      </div>
+ 
+      <div class="modal-field">
+        <label>E-mail</label>
+        <input type="email" placeholder="seuemail@exemplo.com">
+      </div>
+ 
+      <div class="modal-field">
+        <label>Senha</label>
+        <div class="input-wrap">
+          <input type="password" placeholder="••••••••" id="passInput">
+          <button class="toggle-pass" id="togglePassBtn">👁</button>
+        </div>
+      </div>
+ 
+      <a class="forgot" id="forgotLink">Esqueceu a senha?</a>
+ 
+      <button class="modal-submit" id="modalSubmitBtn">Entrar na conta</button>
+ 
+      <div class="modal-footer-text" id="modalFooterText">
+        Ainda não tem conta? <b id="footerSwitch">Cadastre-se</b>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ===== MODAL SUCESSO ===== -->
+<div class="modal-overlay" id="successModal">
+  <div class="success-box">
+    <div class="success-icon">✓</div>
+    <h2>Login efetuado com sucesso!</h2>
+    <p>Bem-vindo de volta. Sua conta foi acessada com sucesso.</p>
+    <button class="success-btn" id="successOkBtn">Continuar</button>
+  </div>
+</div>
+ 
+<!-- ===== MODAL SUCESSO AVALIAÇÃO ===== -->
+<div class="modal-overlay" id="reviewSuccessModal">
+  <div class="success-box">
+    <div class="success-icon">✓</div>
+    <h2>Avaliação enviada com sucesso!</h2>
+    <p>Obrigado por compartilhar sua experiência. Sua opinião nos ajuda a melhorar.</p>
+    <button class="success-btn" id="reviewSuccessOkBtn">Continuar</button>
+  </div>
+</div>
+ 
+<!-- ===== PÁGINA INÍCIO ===== -->
+<section class="page active" id="inicio">
+  <div class="hero">
+    <div class="badge">🚌 Viagens confortáveis para todo o Brasil</div>
+    <h1>Sua próxima viagem<br>começa aqui</h1>
+    <p>Compre passagens de ônibus com segurança, praticidade e os melhores preços. Mais de 200 destinos em todo o país.</p>
+    <div class="routes">
+      <div class="route-card"><div class="city">Belo Horizonte (MG)</div><div class="price">R$89,90 por pessoa</div></div>
+      <div class="route-card"><div class="city">Rio de Janeiro (RJ)</div><div class="price">R$129,90 por pessoa</div></div>
+      <div class="route-card"><div class="city">Salvador (BA)</div><div class="price">R$199,90 por pessoa</div></div>
+      <div class="route-card"><div class="city">Curitiba (PR)</div><div class="price">R$159,90 por pessoa</div></div>
+      <div class="route-card"><div class="city">Fortaleza (CE)</div><div class="price">R$219,90 por pessoa</div></div>
+      <div class="route-card"><div class="city">Goiânia (GO)</div><div class="price">R$109,90 por pessoa</div></div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ===== PÁGINA SOBRE NÓS ===== -->
+<section class="page" id="sobre">
+  <div class="about">
+    <div class="eyebrow">SOBRE NÓS</div>
+    <h1>Quem somos</h1>
+    <p>Uma empresa nascida da paixão por viagens e pelo Brasil, com alma familiar e compromisso com cada passageiro.</p>
+    <div class="cards">
+      <div class="card">
+        <img src="IMG/estradaOni.img.png" alt="Início">
+        <div class="card-body">
+          <h3>Início</h3>
+          <p>A ideia foi criada, quando ainda só trabalhamos com viagens pequenas, com o tempo foram aumentando o público e expandimos nossos serviços.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="IMG/img.contagem.png" alt="Onde Surgiu">
+        <div class="card-body">
+          <h3>Onde Surgiu</h3>
+          <p>Tudo começou em <b>Contagem</b>, região metropolitana de Belo Horizonte - MG, com um único ônibus e o sonho de conectar pessoas. A cidade deu nome à empresa de TatuBus e até hoje é nossa sede.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="IMG/img.onibus.png" onerror="this.src=''" alt="Objetivos">
+        <div class="card-body">
+          <h3>Objetivos</h3>
+          <p><b>Nossa origem é a partir da família</b>, que vem passando de geração em geração sempre evoluindo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ===== PÁGINA AVALIAÇÃO ===== -->
+<section class="page" id="avaliacao">
+  <div class="review-wrap">
+    <div class="eyebrow">AVALIAÇÃO</div>
+    <h1>Como foi sua viagem?</h1>
+    <p class="sub">Sua opinião é muito importante para continuarmos melhorando nossos serviços.</p>
+ 
+    <div class="review-box">
+      <div class="field">
+        <label>Rota viajada</label>
+        <input type="text" placeholder="Ex: São Paulo → Rio de Janeiro" id="rota">
+      </div>
+ 
+      <div class="field">
+        <label>Avaliação geral</label>
+        <div class="stars" id="stars">
+          <span data-v="1">★</span>
+          <span data-v="2">★</span>
+          <span data-v="3">★</span>
+          <span data-v="4">★</span>
+          <span data-v="5">★</span>
+        </div>
+        <div class="hint" id="starHint">Selecione pelo menos uma estrela</div>
+      </div>
+ 
+      <div class="field">
+        <label>Comentários <span style="font-weight:400;color:#90a0aa;">(opcional)</span></label>
+        <textarea maxlength="500" placeholder="Conte-nos como foi a experiência — pontualidade, conforto, atendimento..." id="comentario"></textarea>
+        <div class="count"><span id="charCount">0</span>/500</div>
+      </div>
+ 
+      <div class="submit-row">
+        <button class="submit-btn" id="submitBtn">Enviar avaliação ➤</button>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<script>
+  // navegação entre páginas
+  document.querySelectorAll('nav a').forEach(link=>{
+    link.addEventListener('click', ()=>{
+      document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
+      link.classList.add('active');
+      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+      document.getElementById(link.dataset.page).classList.add('active');
+    });
+  });
+ 
+  // estrelas
+  let rating = 0;
+  const stars = document.querySelectorAll('#stars span');
+  stars.forEach(star=>{
+    star.addEventListener('click', ()=>{
+      rating = parseInt(star.dataset.v);
+      updateStars();
+      checkForm();
+    });
+  });
+  function updateStars(){
+    stars.forEach(s=>{
+      s.classList.toggle('active', parseInt(s.dataset.v) <= rating);
+    });
+    document.getElementById('starHint').textContent = rating > 0
+      ? rating + (rating>1 ? ' estrelas selecionadas' : ' estrela selecionada')
+      : 'Selecione pelo menos uma estrela';
+  }
+ 
+  // contador de caracteres
+  const textarea = document.getElementById('comentario');
+  const charCount = document.getElementById('charCount');
+  textarea.addEventListener('input', ()=>{
+    charCount.textContent = textarea.value.length;
+  });
+ 
+  // habilitar botão
+  function checkForm(){
+    const btn = document.getElementById('submitBtn');
+    if(rating > 0){
+      btn.classList.add('enabled');
+    } else {
+      btn.classList.remove('enabled');
+    }
+  }
+ 
+  // ===== MODAL LOGIN/CADASTRO =====
+  const loginModal = document.getElementById('loginModal');
+  const loginOpenBtn = document.getElementById('loginOpenBtn');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+  const tabEntrar = document.getElementById('tabEntrar');
+  const tabCadastrar = document.getElementById('tabCadastrar');
+  const signupOnly = document.querySelector('.signup-only');
+  const modalSubmitBtn = document.getElementById('modalSubmitBtn');
+  const modalFooterText = document.getElementById('modalFooterText');
+  const forgotLink = document.getElementById('forgotLink');
+  const togglePassBtn = document.getElementById('togglePassBtn');
+  const passInput = document.getElementById('passInput');
+ 
+  loginOpenBtn.addEventListener('click', ()=>{
+    loginModal.classList.add('active');
+  });
+  closeModalBtn.addEventListener('click', ()=>{
+    loginModal.classList.remove('active');
+  });
+  loginModal.addEventListener('click', (e)=>{
+    if(e.target === loginModal) loginModal.classList.remove('active');
+  });
+ 
+  function setTab(mode){
+    if(mode === 'entrar'){
+      tabEntrar.classList.add('active');
+      tabCadastrar.classList.remove('active');
+      signupOnly.style.display = 'none';
+      forgotLink.style.display = 'block';
+      modalSubmitBtn.textContent = 'Entrar na conta';
+      modalFooterText.innerHTML = 'Ainda não tem conta? <b id="footerSwitch">Cadastre-se</b>';
+    } else {
+      tabCadastrar.classList.add('active');
+      tabEntrar.classList.remove('active');
+      signupOnly.style.display = 'block';
+      forgotLink.style.display = 'none';
+      modalSubmitBtn.textContent = 'Criar conta';
+      modalFooterText.innerHTML = 'Já tem conta? <b id="footerSwitch">Entrar</b>';
+    }
+    document.getElementById('footerSwitch').addEventListener('click', ()=>{
+      setTab(mode === 'entrar' ? 'cadastrar' : 'entrar');
+    });
+  }
+  tabEntrar.addEventListener('click', ()=>setTab('entrar'));
+  tabCadastrar.addEventListener('click', ()=>setTab('cadastrar'));
+  setTab('entrar');
+ 
+  togglePassBtn.addEventListener('click', ()=>{
+    passInput.type = passInput.type === 'password' ? 'text' : 'password';
+  });
+ 
+  // ===== MODAL SUCESSO =====
+  const successModal = document.getElementById('successModal');
+  const successOkBtn = document.getElementById('successOkBtn');
+ 
+  modalSubmitBtn.addEventListener('click', ()=>{
+    loginModal.classList.remove('active');
+    successModal.classList.add('active');
+  });
+  successOkBtn.addEventListener('click', ()=>{
+    successModal.classList.remove('active');
+  });
+  successModal.addEventListener('click', (e)=>{
+    if(e.target === successModal) successModal.classList.remove('active');
+  });
+ 
+  // ===== MODAL SUCESSO AVALIAÇÃO =====
+  const reviewSuccessModal = document.getElementById('reviewSuccessModal');
+  const reviewSuccessOkBtn = document.getElementById('reviewSuccessOkBtn');
+  const reviewSubmitBtn = document.getElementById('submitBtn');
+ 
+  reviewSubmitBtn.addEventListener('click', ()=>{
+    if(rating > 0){
+      reviewSuccessModal.classList.add('active');
+      // reset do formulário
+      document.getElementById('rota').value = '';
+      textarea.value = '';
+      charCount.textContent = '0';
+      rating = 0;
+      updateStars();
+      checkForm();
+    }
+  });
+  reviewSuccessOkBtn.addEventListener('click', ()=>{
+    reviewSuccessModal.classList.remove('active');
+  });
+  reviewSuccessModal.addEventListener('click', (e)=>{
+    if(e.target === reviewSuccessModal) reviewSuccessModal.classList.remove('active');
+  });
+</script>
+ 
 </body>
 </html>
